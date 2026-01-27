@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
+using TutorialApp.ViewModel;
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -16,6 +18,10 @@ namespace TutorialApp.ViewModel
 {
     public partial class MainViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private object? _currentView;
+        private readonly LibraryViewModel _libraryViewModel = new();
+
         [ObservableProperty]
         private string _title = "Tutorial application";
 
@@ -25,15 +31,21 @@ namespace TutorialApp.ViewModel
         private readonly GridLength _menuWidthClosed = new GridLength(0);
 
         [RelayCommand]
-        private void Click()
+        private void ChangeView(string target)
         {
-            Title = "LInk success!";
+            if (target == "Main")
+            {
+                CurrentView = this;
+            }
+            else if (target == "Library")
+            {
+                CurrentView = _libraryViewModel;
+            }
         }
 
         [RelayCommand]
         private void SideMenu()
         {
-            Title = "Open side menu";
             MenuWidth = (MenuWidth.Value <= 0 ?
                 _menuWidthOpened : 
                 _menuWidthClosed);
