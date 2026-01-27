@@ -3,38 +3,46 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
-using TutorialApp.Helper;
+
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace TutorialApp.ViewModel
 {
-    class MainViewModel : INotifyPropertyChanged
+    public partial class MainViewModel : ObservableObject
     {
+        [ObservableProperty]
         private string _title = "Tutorial application";
-        private ICommand? _clickCommand;
 
-        public string Title 
+        [ObservableProperty]
+        private GridLength _menuWidth = new GridLength(0);
+        private readonly GridLength _menuWidthOpened = new GridLength(100);
+        private readonly GridLength _menuWidthClosed = new GridLength(0);
+
+        [RelayCommand]
+        private void Click()
         {
-            get => _title;
-            set
-            {
-                _title = value;
-                OnPropertyChanged();
-            }
+            Title = "LInk success!";
         }
 
-        public ICommand ClickCommand => _clickCommand ??= new RelayCommand(obj =>
+        [RelayCommand]
+        private void SideMenu()
         {
-            Title = "Link Success!";
-        });
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            Title = "Open side menu";
+            MenuWidth = (MenuWidth.Value <= 0 ?
+                _menuWidthOpened : 
+                _menuWidthClosed);
         }
 
+        [RelayCommand]
+        private void ExitApp()
+        {
+            Application.Current.MainWindow?.Close();
+        }
     }
 }
