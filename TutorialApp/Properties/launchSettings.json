@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TutorialApp": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\workspace\\wpf_tutorial\\TutorialApp"
+    }
+  }
+}

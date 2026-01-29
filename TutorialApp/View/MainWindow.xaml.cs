@@ -23,6 +23,7 @@ namespace TutorialApp
             InitializeComponent();
 
             this.DataContext = new MainViewModel();
+            
         }
     }
 }

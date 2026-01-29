@@ -31,7 +31,6 @@
 
         <Grid Grid.Column="2">
             <ContentControl Content="{Binding CurrentView}"/>
-            <TextBlock Text="{Binding Title}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
     </Grid>

@@ -35,7 +35,7 @@ namespace TutorialApp.ViewModel
         {
             if (target == "Main")
             {
-                CurrentView = this;
+                CurrentView = this; // Homepage 전용 view model 따로 만들어야 함
             }
             else if (target == "Library")
             {

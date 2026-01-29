@@ -6,7 +6,46 @@
              xmlns:local="clr-namespace:TutorialApp.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="SeaGreen">
-        <TextBlock Text="Hello library!"/>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    
+    <Grid Background="Ivory">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Margin="10">
+            <ComboBox DockPanel.Dock="Left" 
+                      ItemsSource="{Binding SearchOptions}"
+                      SelectedItem="{Binding SelectedSearchOption}"
+                      VerticalAlignment="Center"
+                      Margin="0, 0, 5, 0"/>
+            <Button DockPanel.Dock="Right" Margin="5, 0, 0, 0" Content="Go" Width="30" Command="{Binding SearchCommand}"/>
+            <TextBox Text="Search" Height="25" VerticalAlignment="Center"/>
+        </DockPanel>
+        <DataGrid Grid.Row="1" 
+                  x:Name="BookDataGrid"
+                  ItemsSource="{Binding Books}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="*"/>
+                <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="*"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*"/>
+                <DataGridTextColumn Header="Published Date" Binding="{Binding PublishedDate}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" 
+                    HorizontalAlignment="Center"
+                    Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
+            <ProgressBar IsIndeterminate="True" Width="200" Height="20"/>
+            <TextBlock Text="도서 정보를 불러오는 중..." 
+                       VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>
