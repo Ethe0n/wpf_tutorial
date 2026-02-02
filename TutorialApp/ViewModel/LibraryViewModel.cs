@@ -28,18 +28,30 @@ namespace TutorialApp.ViewModel
         [ObservableProperty]
         private bool _isLoading;
 
-        public List<string> SearchOptions { get; } = new List<string>
+
+        public class FilterItem
         {
-            "제목", "저자", "장르"
-        };
+            public string DisplayName { get; set; }
+            public string DBFieldName { get; set; }
+        }
+        public ObservableCollection<FilterItem> FilterOptions { get; set; }
+
         [ObservableProperty]
-        private string _selectedSearchOption = "제목";
+        private string _selectedFilter;
 
         [ObservableProperty]
         private string _searchText = "";
 
         public LibraryViewModel()
         {
+            FilterOptions = new ObservableCollection<FilterItem>
+            {
+                new FilterItem {DisplayName = "제목", DBFieldName = "title"},
+                new FilterItem { DisplayName = "저자", DBFieldName = "author"},
+                new FilterItem { DisplayName = "장르", DBFieldName = "genre"}
+            };
+            SelectedFilter = FilterOptions[0].DBFieldName;
+
             LoadAllBooks();
         }
 
@@ -57,14 +69,16 @@ namespace TutorialApp.ViewModel
         }
 
         [RelayCommand]
-        private async void Search()
+        private async Task Search()
         {
             IsLoading = true;
 
             try
             {
                 BookDataManager manager = new BookDataManager();
-                await manager.AsyncTest();
+                var bookList = await manager.SearchBooks(SelectedFilter, SearchText);
+
+                Books = new ObservableCollection<Book>(bookList);
             }
             finally { IsLoading = false; }
         }
