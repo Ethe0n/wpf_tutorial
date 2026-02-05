@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="10">
             <ComboBox DockPanel.Dock="Left" 
@@ -37,7 +38,7 @@
                   Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="3*"/>
                 <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="*"/>
                 <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="*"/>
                 <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*"/>
@@ -50,6 +51,32 @@
             <ProgressBar IsIndeterminate="True" Width="200" Height="20"/>
             <TextBlock Text="도서 정보를 불러오는 중..." 
                        VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="이전" Width="40" Margin="5"
+                    Command="{Binding MovePageCommand}"
+                    CommandParameter="False"
+                    IsEnabled="{Binding HasPrevPage}"/>
+            <ItemsControl x:Name="PageControl" ItemsSource="{Binding PageNumbers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding}"
+                                Width="20" Height="20" Margin="5"
+                                CommandParameter="{Binding}"
+                                Command="{Binding DataContext.SearchPageCommand, ElementName=PageControl}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="다음" Width="40" Margin="5" 
+                    Command="{Binding MovePageCommand}"
+                    CommandParameter="True"
+                    IsEnabled="{Binding HasNextPage}"/>
         </StackPanel>
     </Grid>
 </UserControl>

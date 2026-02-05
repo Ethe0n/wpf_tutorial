@@ -27,14 +27,15 @@ namespace TutorialApp.Service
             return $"Data Source={dbPath}";
         }
 
-        public async Task<List<Book>> LoadAllBooks()
+        public async Task<List<Book>> LoadAllBooks(int limit)
         {
             var books = new List<Book>();
 
             using (var conn = new SqliteConnection(GetConnectionString()))
             {
                 await conn.OpenAsync();
-                var cmd = new SqliteCommand("SELECT * FROM book LIMIT 50", conn);
+                var cmd = new SqliteCommand("SELECT * FROM book LIMIT @itemNumber offset 0", conn);
+                cmd.Parameters.AddWithValue("@itemNumber", limit);
 
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
@@ -48,7 +49,7 @@ namespace TutorialApp.Service
             return books;
         }
 
-        public async Task<List<Book>> SearchBooks(string field, string value)
+        public async Task<List<Book>> SearchBooks(string field, string value, int limit, int offset)
         {
             var books = new List<Book>();
 
@@ -56,10 +57,16 @@ namespace TutorialApp.Service
             {
                 await conn.OpenAsync();
 
-                string query = $"SELECT * FROM book WHERE {field} LIKE @search";
+                string query = $"" +
+                    $"SELECT * FROM book WHERE {field} " +
+                    $"LIKE @search ORDER BY id ASC " +
+                    $"LIMIT @itemNumber offset @startIndex";
 
                 var cmd = new SqliteCommand(query, conn);
                 cmd.Parameters.AddWithValue("@search", $"%{value}%");
+                cmd.Parameters.AddWithValue("@itemNumber", $"{limit}");
+                cmd.Parameters.AddWithValue("@startIndex", $"{offset}");
+
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
                     if (!reader.HasRows)
@@ -75,6 +82,27 @@ namespace TutorialApp.Service
             }
 
             return books;
+        }
+
+        public async Task<int> GetCountInRange(string field, string value, int limit, int offset)
+        {
+            using (var conn = new SqliteConnection(GetConnectionString()))
+            {
+                await conn.OpenAsync();
+
+                string query = $"" +
+                    $"SELECT COUNT(*) FROM " +
+                        $"(SELECT 1 FROM book WHERE {field} " +
+                        $"LIKE @search " +
+                        $"LIMIT @itemNumber offset @startIndex)";
+
+                var cmd = new SqliteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@search", $"%{value}%");
+                cmd.Parameters.AddWithValue("@itemNumber", $"{limit}");
+                cmd.Parameters.AddWithValue("@startIndex", $"{offset}");
+
+                return Convert.ToInt32(await cmd.ExecuteScalarAsync());
+            }
         }
 
         private void AddBookDataToList(SqliteDataReader reader, List<Book> books)
