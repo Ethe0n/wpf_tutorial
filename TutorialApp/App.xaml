@@ -9,5 +9,11 @@
         <DataTemplate DataType="{x:Type viewmodel:LibraryViewModel}">
             <view:LibraryControl/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:HomeViewModel}">
+            <view:HomeControl/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:VideoViewModel}">
+            <view:VideoControl/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

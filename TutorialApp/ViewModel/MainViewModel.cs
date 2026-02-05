@@ -21,6 +21,8 @@ namespace TutorialApp.ViewModel
         [ObservableProperty]
         private object? _currentView;
         private readonly LibraryViewModel _libraryViewModel = new();
+        private readonly HomeViewModel _homeViewModel = new();
+        private readonly VideoViewModel _videoViewModel = new();
 
         [ObservableProperty]
         private string _title = "Tutorial application";
@@ -35,11 +37,15 @@ namespace TutorialApp.ViewModel
         {
             if (target == "Main")
             {
-                CurrentView = this; // Homepage 전용 view model 따로 만들어야 함
+                CurrentView = _homeViewModel;
             }
             else if (target == "Library")
             {
                 CurrentView = _libraryViewModel;
+            }
+            else if (target == "Video")
+            {
+                CurrentView = _videoViewModel;
             }
         }
 

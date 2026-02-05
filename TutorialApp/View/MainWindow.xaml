@@ -23,6 +23,7 @@
             <Button Content="≡" Margin="5, 5" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Command="{Binding SideMenuCommand}"/>
             <Button Content="M" Margin="5, 45" Width ="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding ChangeViewCommand}" CommandParameter="Main"/>
             <Button Content="L" Margin="5, 85" Width ="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding ChangeViewCommand}" CommandParameter="Library"/>
+            <Button Content="V" Margin="5, 125" Width ="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding ChangeViewCommand}" CommandParameter="Video"/>
         </Grid>
 
         <Grid Grid.Column="1">
