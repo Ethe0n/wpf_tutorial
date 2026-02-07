@@ -7,7 +7,7 @@
              xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Orange">
+    <Grid Background="Black">
         <ItemsControl ItemsSource="{Binding MediaPlayers}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -18,7 +18,30 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="2">
-                        <vlc:VideoView MediaPlayer="{Binding}"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <vlc:VideoView Grid.Row="0" MediaPlayer="{Binding}"/>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Play" Width="Auto" Height="30"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    />
+                            <Button Content="Open" Width="Auto" Height="30"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    />
+                            <Button Content="&lt; 5sec" Width="Auto" Height="30"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    />
+                            <Button Content="&gt; 5sec" Width="Auto" Height="30"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    />
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
