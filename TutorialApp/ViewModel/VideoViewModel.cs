@@ -72,13 +72,31 @@ namespace TutorialApp.ViewModel
         [RelayCommand]
         private void Play(MediaPlayer player)
         {
-
+            player.Play();
         }
 
         [RelayCommand]
-        private void Stop(MediaPlayer player)
+        private void Pause(MediaPlayer player)
         {
+            player.Pause();
+        }
 
+        [RelayCommand]
+        private void Forward5Sec(MediaPlayer player)
+        {
+            if (player == null || player.Length <= 0) { return; }
+
+            long targetTime = Math.Min(player.Length, player.Time + 5000);
+            player.Time = targetTime;
+        }
+
+        [RelayCommand]
+        private void Rewind5Sec(MediaPlayer player)
+        {
+            if (player == null) { return; }
+
+            long targetTime = Math.Max(0, player.Time - 5000);
+            player.Time = targetTime;
         }
     }
 }

@@ -31,6 +31,11 @@ namespace TutorialApp.ViewModel
         private GridLength _menuWidth = new GridLength(0);
         private readonly GridLength _menuWidthOpened = new GridLength(100);
         private readonly GridLength _menuWidthClosed = new GridLength(0);
+        
+        public MainViewModel()
+        {
+            CurrentView = _homeViewModel;
+        }
 
         [RelayCommand]
         private void ChangeView(string target)

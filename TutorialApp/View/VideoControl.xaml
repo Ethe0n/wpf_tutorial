@@ -22,25 +22,33 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
-
                         <vlc:VideoView Grid.Row="0" MediaPlayer="{Binding}"/>
                         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Content="Play" Width="Auto" Height="30"
+                            <Button Width="Auto" Height="30" Margin="3, 0, 3, 0"
                                     CommandParameter="{Binding}"
-                                    Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                    />
-                            <Button Content="Open" Width="Auto" Height="30"
+                                    Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                <Image Source="/Asset/play-icon.png" Stretch="Uniform"/>
+                            </Button>
+                            <Button Width="Auto" Height="30" Margin="3, 0, 3, 0"
                                     CommandParameter="{Binding}"
-                                    Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                    />
-                            <Button Content="&lt; 5sec" Width="Auto" Height="30"
+                                    Command="{Binding DataContext.PauseCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                <Image Source="/Asset/pause-icon.png" Stretch="Uniform"/>
+                            </Button>
+                            <Button Width="Auto" Height="30" Margin="3, 0, 3, 0"
                                     CommandParameter="{Binding}"
-                                    Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                    />
-                            <Button Content="&gt; 5sec" Width="Auto" Height="30"
+                                    Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                <Image Source="/Asset/folder-icon.png" Stretch="Uniform"/>
+                            </Button>
+                            <Button Width="Auto" Height="30" Margin="3, 0, 3, 0"
                                     CommandParameter="{Binding}"
-                                    Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                    />
+                                    Command="{Binding DataContext.Rewind5SecCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                <Image Source="/Asset/rewind-5-sec-icon.png" Stretch="Uniform"/>
+                            </Button>
+                            <Button Width="Auto" Height="30"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding DataContext.Forward5SecCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                <Image Source="/Asset/forward-5-icon.png" Stretch="Uniform"/>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

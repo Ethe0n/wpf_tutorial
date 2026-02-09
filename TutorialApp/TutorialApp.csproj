@@ -9,10 +9,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Asset\folder-icon.png" />
+    <None Remove="Asset\forward-5-icon.png" />
+    <None Remove="Asset\home-icon.png" />
+    <None Remove="Asset\library-icon.png" />
+    <None Remove="Asset\pause-icon.png" />
+    <None Remove="Asset\play-icon.png" />
+    <None Remove="Asset\rewind-5-sec-icon.png" />
+    <None Remove="Asset\video-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="LibVLCSharp.WPF" Version="3.9.5" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.2" />
     <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.23" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\folder-icon.png" />
+    <Resource Include="Asset\forward-5-icon.png" />
+    <Resource Include="Asset\home-icon.png" />
+    <Resource Include="Asset\library-icon.png" />
+    <Resource Include="Asset\pause-icon.png" />
+    <Resource Include="Asset\play-icon.png" />
+    <Resource Include="Asset\rewind-5-sec-icon.png" />
+    <Resource Include="Asset\video-icon.png" />
   </ItemGroup>
 
 </Project>
